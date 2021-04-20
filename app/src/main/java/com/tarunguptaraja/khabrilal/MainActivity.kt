@@ -1,8 +1,10 @@
 package com.tarunguptaraja.khabrilal
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity(),NewsItemClicked {
     }
 
     private fun fetchData() {
-        val url = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=3228cc7f18af45a5b073284ab8b05853"
+        val url = "https://saurav.tech/NewsAPI/top-headlines/category/general/in.json"
 
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
                 {
@@ -54,6 +56,8 @@ class MainActivity : AppCompatActivity(),NewsItemClicked {
     }
 
     override fun onItemClicked(item: News) {
-        Toast.makeText(this,"Clicked on $item",Toast.LENGTH_LONG).show()
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(this, Uri.parse(item.url))
     }
 }

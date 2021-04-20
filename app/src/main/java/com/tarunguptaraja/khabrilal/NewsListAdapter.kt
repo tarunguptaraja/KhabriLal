@@ -3,8 +3,10 @@ package com.tarunguptaraja.khabrilal
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class NewsListAdapter( private val listner:NewsItemClicked): RecyclerView.Adapter<NewsViewHolder>() {
 
@@ -65,6 +67,9 @@ class NewsListAdapter( private val listner:NewsItemClicked): RecyclerView.Adapte
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val currentItem = items[position]
         holder.titleView.text=currentItem.title
+        holder.authorView.text=currentItem.author
+        Glide.with(holder.itemView.context).load(currentItem.imageUrl).into(holder.image)
+
     }
 
     /**
@@ -85,6 +90,8 @@ class NewsListAdapter( private val listner:NewsItemClicked): RecyclerView.Adapte
 }
 class NewsViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     val titleView = itemView.findViewById<TextView>(R.id.title)
+    val authorView = itemView.findViewById<TextView>(R.id.author)
+    val image = itemView.findViewById<ImageView>(R.id.imageView)
 }
 
 interface NewsItemClicked{
